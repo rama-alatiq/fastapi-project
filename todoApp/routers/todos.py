@@ -8,7 +8,7 @@ from todoApp.models.models import TodoCreate, TodoItem
 
 
 
-router = APIRouter(prefix="/todos",tags=["todos"])
+router = APIRouter(tags=["todos"])
 
 T=TypeVar("T")
 class Response(BaseModel,Generic[T]):

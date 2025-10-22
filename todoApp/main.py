@@ -20,7 +20,7 @@ async def lifespan(app:FastAPI):
             
     yield
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(root_path="/api/v2",lifespan=lifespan)
 app.include_router(router=todos_router)
 
 @app.get("/ping")
