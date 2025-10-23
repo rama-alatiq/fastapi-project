@@ -15,7 +15,12 @@ DATABASE_URL=os.environ.get(
 engine=create_engine(
     DATABASE_URL,
     echo=False,
-    poolclass=NullPool
+    #to rely on the supabase pooler
+    poolclass=NullPool,
+    connect_args={
+        "connect_timeout":5,
+        "options": "-c statement_timeout=5000 -c lock_timeout=5000"
+    }
 )
 
 def create_db_and_table():
