@@ -2,14 +2,14 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from fastapi import FastAPI
 from sqlmodel import Session, select
-from todoApp.db.db import create_db_and_table,engine
+from todoApp.db.db import engine
 from todoApp.models.models import TodoItem
 from todoApp.routers.todos import router as todos_router
 
 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
-    create_db_and_table()
+    # create_db_and_table()
     with Session(engine) as session:
         if not session.exec(select(TodoItem)).first():
             session.add_all([
