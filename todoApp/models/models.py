@@ -15,9 +15,9 @@ class TodoItem(SQLModel,table=True):
     model_config:Any = ConfigDict(
     json_schema_extra = {
         "propertyOrdering": [
-            "id",
-            "title",
             "description",
+            "title",
+            "id",
             "due_date",
             "completed",
             "created_at",
@@ -36,9 +36,9 @@ class TodoCreate(SQLModel):
     model_config:Any = ConfigDict(
         json_schema_extra = {
             "propertyOrdering": [
-                "id",
-                "title",
                 "description",
+                "title",
+                "id",
                 "due_date",
                 "completed",
                 "created_at",
