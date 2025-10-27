@@ -1,5 +1,7 @@
 
 from datetime import datetime, timezone
+from typing import Any
+from pydantic import ConfigDict
 from sqlmodel import Field, SQLModel # type: ignore
 
 
@@ -10,6 +12,19 @@ class TodoItem(SQLModel,table=True):
     description:str |None=Field(default=None)
     due_date:datetime| None=Field(default=None,index=True)
     created_at:datetime=Field(default_factory=lambda:datetime.now(timezone.utc),index=True)
+    model_config:Any = ConfigDict(
+    json_schema_extra = {
+        "propertyOrdering": [
+            "id",
+            "title",
+            "description",
+            "due_date",
+            "completed",
+            "created_at",
+        ]
+       }
+    )
+
 
 class TodoCreate(SQLModel):
     title:str
@@ -17,4 +32,17 @@ class TodoCreate(SQLModel):
     completed: bool=Field(default=False)
     due_date:datetime|None=Field(default=None)
     created_at:datetime=Field(default_factory=lambda:datetime.now(timezone.utc),index=True)
+
+    model_config:Any = ConfigDict(
+        json_schema_extra = {
+            "propertyOrdering": [
+                "id",
+                "title",
+                "description",
+                "due_date",
+                "completed",
+                "created_at",
+            ]
+        }
+    )
 

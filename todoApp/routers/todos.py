@@ -30,11 +30,15 @@ async def get_todo(id:int,session:SessionDep):
 
 @router.post("/todos",response_model=Response[TodoItem],status_code=201)
 async def create_todo(session:SessionDep,todo:TodoCreate):
-    db_todo=TodoItem.model_validate(todo)
-    session.add(db_todo)
+    # db_todo=TodoItem.model_validate(todo)
+    db=TodoItem(**todo.model_dump())
+    session.add(db)
     session.commit()
-    session.refresh(db_todo)
-    return Response(data=db_todo)
+    session.refresh(db)
+    # return Response(data=db_todo)
+    return {
+       "data":db
+    } # type: ignore
 
 @router.put("/todos/{id}",response_model=Response[TodoItem])
 async def update_todo(id:int,todo:TodoCreate,session:SessionDep):
